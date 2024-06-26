@@ -1,5 +1,3 @@
-Aqui está um exemplo de um README atualizado para o seu repositório GitHub, com orientações sobre como usar o projeto:
-
 # Billing Management
 
 Este projeto é uma REST API de gerenciamento de serviços de faturamento, utilizando uma arquitetura voltada para o domínio (DDD) e ferramentas Microsoft, como .NET com C#.
@@ -49,12 +47,6 @@ Se você quiser contribuir para este projeto, siga as etapas abaixo:
 4. Envie suas alterações para o repositório remoto: `git push origin minha-contribuicao`.
 5. Abra um pull request no GitHub.
 
-## Licença
-
-Este projeto está licenciado sob a [MIT License](https://opensource.org/licenses/MIT).
-
 ## Contato
 
 Se você tiver alguma dúvida ou sugestão, entre em contato através do email: [seu-email@example.com](mailto:seu-email@example.com).
-
-Espero que isso ajude!
