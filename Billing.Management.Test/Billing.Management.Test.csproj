@@ -17,6 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Billing.Management.Application\Billing.Management.Application.csproj" />
+    <ProjectReference Include="..\Billing.Management.Domain\Billing.Management.Domain.csproj" />
+    <ProjectReference Include="..\Billing.Management.Infra.CrossCutting\Billing.Management.Infra.CrossCutting.csproj" />
+    <ProjectReference Include="..\Billing.Management.Infra.Data\Billing.Management.Infra.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 

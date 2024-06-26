@@ -6,4 +6,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Billing\Models\" />
+    <Folder Include="Billing\Repositories\Interfaces\" />
+    <Folder Include="Billing\Services\Interfaces\" />
+    <Folder Include="Customer\Model\" />
+    <Folder Include="Customer\Repository\Interface\" />
+    <Folder Include="Customer\Service\Interface\" />
+    <Folder Include="Product\Model\" />
+    <Folder Include="Product\Repository\Interface\" />
+    <Folder Include="Product\Service\Interface\" />
+    <Folder Include="UnitOfWork\Interface\" />
+  </ItemGroup>
+
 </Project>

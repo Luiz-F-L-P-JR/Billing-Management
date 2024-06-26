@@ -10,4 +10,28 @@
     <ProjectReference Include="..\Billing.Management.Domain\Billing.Management.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Billing\FluentApis\" />
+    <Folder Include="Billing\Repositories\" />
+    <Folder Include="Context\" />
+    <Folder Include="Customer\FluentApi\" />
+    <Folder Include="Customer\Repository\" />
+    <Folder Include="UnitOfWork\" />
+    <Folder Include="Product\FluentApi\" />
+    <Folder Include="Product\Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
 </Project>
