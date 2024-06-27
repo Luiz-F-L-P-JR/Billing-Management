@@ -10,14 +10,4 @@
     <ProjectReference Include="..\Billing.Management.Domain\Billing.Management.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="AutoMapper\" />
-    <Folder Include="Billing\DTOs\" />
-    <Folder Include="Billing\Services\Interfaces\" />
-    <Folder Include="Customer\DTO\" />
-    <Folder Include="Customer\Service\Interface\" />
-    <Folder Include="Product\DTO\" />
-    <Folder Include="Product\Service\Interface\" />
-  </ItemGroup>
-
 </Project>

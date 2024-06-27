@@ -5,7 +5,7 @@ namespace Billing.Management.Infra.CrossCutting.Extensions.SwaggerConfig
 {
     public static class Swagger
     {
-        public static void AddSwaggerConfig(this IServiceCollection services)
+        public static void AddSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(options =>
             {

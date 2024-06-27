@@ -11,14 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Billing\FluentApis\" />
-    <Folder Include="Billing\Repositories\" />
-    <Folder Include="Context\" />
-    <Folder Include="Customer\FluentApi\" />
-    <Folder Include="Customer\Repository\" />
     <Folder Include="UnitOfWork\" />
-    <Folder Include="Product\FluentApi\" />
-    <Folder Include="Product\Repository\" />
   </ItemGroup>
 
   <ItemGroup>

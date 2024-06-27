@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1 Infra.Data", "4.1 Infra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2 Infra.CrossCutting", "4.2 Infra.CrossCutting", "{1F66775D-41E8-4E92-B692-9EE254811AC4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Tests", "5 - Tests", "{63DA1CA7-2EB0-4631-959E-D40816ADC3DC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Test", "5 - Test", "{63DA1CA7-2EB0-4631-959E-D40816ADC3DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing.Management.Api", "Billing.Management.Api\Billing.Management.Api.csproj", "{BBC9DC3B-6A77-48BD-A55F-4C853B86ECC6}"
 EndProject
