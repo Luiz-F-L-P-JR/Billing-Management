@@ -26,7 +26,7 @@ namespace Billing.Management.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get(Guid id)
             => Ok(await _service.GetAsync(id));
 
         [HttpPost]
