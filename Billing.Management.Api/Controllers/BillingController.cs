@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Billing.Management.Application.Billing.DTOs;
+using Billing.Management.Application.Billing.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Billing.Management.Api.Controllers
 {
@@ -6,36 +8,65 @@ namespace Billing.Management.Api.Controllers
     [Route("api/[controller]")]
     public class BillingController : ControllerBase
     {
-        // GET: api/<BillingController>
+        private readonly IBillingAppService? _service;
+
+        public BillingController(IBillingAppService? service)
+        {
+            _service = service;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(BillingDTO), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Get()
+            => Ok(await _service.GetAllAsync());
 
-        // GET api/<BillingController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(BillingDTO), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Get(Guid id)
+            => Ok(await _service.GetAsync(id));
 
-        // POST api/<BillingController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Post(BillingDTO billing)
         {
+            if (billing is BillingDTO)
+            {
+                await _service.CreateAsync(billing);
+                return Created();
+            }
+
+            return BadRequest();
         }
 
-        // PUT api/<BillingController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut()]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Put(BillingDTO billing)
         {
+            if (billing is BillingDTO { Id: Guid })
+            {
+                await _service.UpdateAsync(billing);
+                return NoContent();
+            }
+
+            return BadRequest();
         }
 
-        // DELETE api/<BillingController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Delete(Guid id)
         {
+            await _service.DeleteAsync(id);
+            return NoContent();
         }
     }
 }

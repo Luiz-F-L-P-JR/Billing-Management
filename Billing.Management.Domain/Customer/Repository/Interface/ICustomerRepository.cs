@@ -1,7 +1,10 @@
 ﻿
+using Billing.Management.Domain.Generic.Repository.Interface;
+
 namespace Billing.Management.Domain.Customer.Repository.Interface
 {
-    public interface ICustomerRepository
+    public interface ICustomerRepository : IRepositoryGeneric<Model.Customer>
     {
+        Task<IEnumerable<Model.Customer>> GetAllAsync();
     }
 }

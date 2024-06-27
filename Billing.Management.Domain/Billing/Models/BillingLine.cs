@@ -3,6 +3,7 @@ namespace Billing.Management.Domain.Billing.Models
 {
     public sealed class BillingLine
     {
+        public Guid Id { get; set; }
         public Guid BillingId { get; set; }
         public Guid ProductId { get; set; }
         public string? Description { get; set; }

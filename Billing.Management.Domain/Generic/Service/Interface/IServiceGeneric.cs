@@ -1,7 +1,7 @@
 ﻿
-namespace Billing.Management.Domain.Generic.Repository.Interface
+namespace Billing.Management.Domain.Generic.Service.Interface
 {
-    public interface IRepositoryGeneric<T>
+    public interface IServiceGeneric<T>
     {
         Task DeleteAsync(Guid id);
         Task CreateAsync(T entity);

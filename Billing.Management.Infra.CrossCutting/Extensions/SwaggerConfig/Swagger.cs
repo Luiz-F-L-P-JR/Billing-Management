@@ -9,7 +9,7 @@ namespace Billing.Management.Infra.CrossCutting.Extensions.SwaggerConfig
         {
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("Billing.Management.Api", new OpenApiInfo
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
                     Title = "Billing.Management.Api",

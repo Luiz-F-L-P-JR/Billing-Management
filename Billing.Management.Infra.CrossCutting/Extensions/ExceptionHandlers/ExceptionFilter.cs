@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 
-namespace Billing.Management.Infra.CrossCutting.Extensions.ExceptionFilter
+namespace Billing.Management.Infra.CrossCutting.Extensions.ExceptionHandlers
 {
-    public sealed class ExceptionFilter : IExceptionFilter
+    internal sealed class ExceptionFilter : IExceptionFilter
     {
         private readonly ILogger<ExceptionFilter>? _logger;
 
@@ -20,8 +20,8 @@ namespace Billing.Management.Infra.CrossCutting.Extensions.ExceptionFilter
 
             context.Result = new ObjectResult(context)
             {
-                Value = context.Exception.Message,
-                StatusCode = context.HttpContext.Response.StatusCode
+                StatusCode = context.HttpContext.Response.StatusCode,
+                Value = context.Exception.Message
             };
         }
     }

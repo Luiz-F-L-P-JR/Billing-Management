@@ -1,14 +1,8 @@
 using Billing.Management.Infra.CrossCutting.Extensions.DbConnectionConfig;
-using Billing.Management.Infra.CrossCutting.Extensions.ExceptionFilter;
 using Billing.Management.Infra.CrossCutting.Extensions.IoC;
 using Billing.Management.Infra.CrossCutting.Extensions.SwaggerConfig;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add(typeof(ExceptionFilter));
-});
 
 builder.Services.AddEndpointsApiExplorer();
 

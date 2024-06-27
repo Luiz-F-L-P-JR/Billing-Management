@@ -8,8 +8,8 @@ namespace Billing.Management.Application.Billing.DTOs
         Customer.DTO.CustomerDTO? Customer, 
         DateTime? Date, 
         DateTime? DueDate, 
-        string? TotalAmount, 
+        decimal? TotalAmount, 
         string? Currency, 
-        BillingLinesDTO? Lines
+        BillingLineDTO? Lines
     );
 }

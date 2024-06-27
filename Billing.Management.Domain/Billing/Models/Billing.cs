@@ -1,6 +1,4 @@
 ﻿
-using Billing.Management.Domain;
-
 namespace Billing.Management.Domain.Billing.Models
 {
     public sealed class Billing
@@ -10,16 +8,16 @@ namespace Billing.Management.Domain.Billing.Models
         public Customer.Model.Customer? Customer { get; set; }
         public DateTime? Date { get; set; } = DateTime.Now;
         public DateTime? DueDate { get; set; }
-        public string? TotalAmount { get; set; }
+        public decimal? TotalAmount { get; set; }
         public string? Currency { get; set; }
-        public BillingLine? Lines { get; set; }
+        public IList<BillingLine>? Lines { get; set; } = new List<BillingLine>();
 
         public Billing()
         {
             
         }
 
-        public Billing(Guid id, string? invoiceNumber, Customer.Model.Customer? customer, DateTime? date, DateTime? dueDate, string? totalAmount, string? currency, BillingLine? lines)
+        public Billing(Guid id, string? invoiceNumber, Customer.Model.Customer? customer, DateTime? date, DateTime? dueDate, decimal? totalAmount, string? currency, IList<BillingLine>? lines)
         {
             Id = id;
             InvoiceNumber = invoiceNumber;

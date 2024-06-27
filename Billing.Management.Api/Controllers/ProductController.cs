@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Billing.Management.Application.Product.DTO;
+using Billing.Management.Application.Product.Service.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Billing.Management.Api.Controllers
 {
@@ -6,36 +8,65 @@ namespace Billing.Management.Api.Controllers
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
-        // GET: api/<ProductController>
+        private readonly IProductAppService? _service;
+
+        public ProductController(IProductAppService? service)
+        {
+            _service = service;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Get()
+            => Ok(await _service.GetAllAsync());
 
-        // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Get(int id)
+            => Ok(await _service.GetAsync(id));
 
-        // POST api/<ProductController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Post(ProductDTO product)
         {
+            if(product is ProductDTO)
+            {
+                await _service.CreateAsync(product);
+                return Created();
+            }
+
+            return BadRequest();
         }
 
-        // PUT api/<ProductController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut()]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Put(ProductDTO product)
         {
+            if (product is ProductDTO { Id: Guid })
+            {
+                await _service.UpdateAsync(product);
+                return NoContent();
+            }
+
+            return BadRequest();
         }
 
-        // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Delete(Guid id)
         {
+            await _service.DeleteAsync(id);
+            return NoContent();
         }
     }
 }
