@@ -17,29 +17,33 @@ namespace Billing.Management.Application.Customer.Service
             _service = service;
         }
 
-        public Task<IEnumerable<CustomerDTO>> GetAllAsync()
+        public async Task<IEnumerable<CustomerDTO>> GetAllAsync(int pagenumber, int pagesize)
         {
-            throw new NotImplementedException();
+            var customers = await _service?.GetAllAsync(pagenumber, pagesize);
+            return _mapper?.Map<List<CustomerDTO>>(customers);
         }
 
-        public Task<CustomerDTO> GetAsync(Guid id)
+        public async Task<CustomerDTO> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var customer = await _service?.GetAsync(id);
+            return _mapper?.Map<CustomerDTO>(customer);
         }
 
-        public Task CreateAsync(CustomerDTO entity)
+        public async Task CreateAsync(CustomerDTO entity)
         {
-            throw new NotImplementedException();
+            var customer = _mapper.Map<Domain.Customer.Model.Customer>(entity);
+            await _service?.CreateAsync(customer);
         }
 
-        public Task UpdateAsync(CustomerDTO entity)
+        public async Task UpdateAsync(CustomerDTO entity)
         {
-            throw new NotImplementedException();
+            var customer = _mapper.Map<Domain.Customer.Model.Customer>(entity);
+            await _service?.UpdateAsync(customer);
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await _service?.DeleteAsync(id);
         }
     }
 }

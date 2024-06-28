@@ -6,6 +6,6 @@ namespace Billing.Management.Application.Customer.Service.Interface
 {
     public interface ICustomerAppService : IServiceGeneric<CustomerDTO>
     {
-        Task<IEnumerable<CustomerDTO>> GetAllAsync();
+        Task<IEnumerable<CustomerDTO>> GetAllAsync(int pagenumber, int pagesize);
     }
 }

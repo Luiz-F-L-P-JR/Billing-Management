@@ -2,6 +2,7 @@
 using Billing.Management.Domain.Product.Repository.Interface;
 using Billing.Management.Infra.Data.Context;
 using Billing.Management.Infra.Data.Generic;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Billing.Management.Infra.Data.Product.Repository
@@ -13,9 +14,14 @@ namespace Billing.Management.Infra.Data.Product.Repository
         {
         }
 
-        public Task<IEnumerable<Domain.Product.Model.Product>> GetAllAsync()
+        public async Task<IEnumerable<Domain.Product.Model.Product>> GetAllAsync(int pagenumber, int pagesize)
         {
-            throw new NotImplementedException();
+          return await _context.Products
+                        .AsNoTracking()
+                        .OrderByDescending(p => p.Id)
+                        .Skip((pagenumber - 1) * pagesize)
+                        .Take(pagesize)
+                        .ToListAsync();
         }
     }
 }

@@ -17,29 +17,33 @@ namespace Billing.Management.Application.Product.Service
             _service = service;
         }
 
-        public Task<IEnumerable<ProductDTO>> GetAllAsync()
+        public async Task<IEnumerable<ProductDTO>> GetAllAsync(int pagenumber, int pagesize)
         {
-            throw new NotImplementedException();
+            var products = await _service?.GetAllAsync(pagenumber, pagesize);
+            return _mapper?.Map<List<ProductDTO>>(products);
         }
 
-        public Task<ProductDTO> GetAsync(Guid id)
+        public async Task<ProductDTO> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var product = await _service?.GetAsync(id);
+            return _mapper?.Map<ProductDTO>(product);
         }
 
-        public Task CreateAsync(ProductDTO entity)
+        public async Task CreateAsync(ProductDTO entity)
         {
-            throw new NotImplementedException();
+            var product = _mapper.Map<Domain.Product.Model.Product>(entity);
+            await _service?.CreateAsync(product);
         }
 
-        public Task UpdateAsync(ProductDTO entity)
+        public async Task UpdateAsync(ProductDTO entity)
         {
-            throw new NotImplementedException();
+            var product = _mapper.Map<Domain.Product.Model.Product>(entity);
+            await _service?.CreateAsync(product);
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await _service?.DeleteAsync(id);
         }
     }
 }

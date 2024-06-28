@@ -12,9 +12,9 @@ namespace Billing.Management.Domain.Customer.Service
         {
         }
 
-        public async Task<IEnumerable<Model.Customer>> GetAllAsync()
+        public async Task<IEnumerable<Model.Customer>> GetAllAsync(int pagenumber, int pagesize)
         {
-            return await _unitOfWork?.CustomerRepository.GetAllAsync();
+            return await _unitOfWork?.CustomerRepository.GetAllAsync(pagenumber, pagesize);
         }
     }
 }

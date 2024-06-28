@@ -5,6 +5,6 @@ namespace Billing.Management.Domain.Customer.Repository.Interface
 {
     public interface ICustomerRepository : IRepositoryGeneric<Model.Customer>
     {
-        Task<IEnumerable<Model.Customer>> GetAllAsync();
+        Task<IEnumerable<Model.Customer>> GetAllAsync(int pagenumber, int pagesize);
     }
 }

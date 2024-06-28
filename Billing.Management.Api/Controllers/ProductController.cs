@@ -19,8 +19,8 @@ namespace Billing.Management.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get()
-            => Ok(await _service.GetAllAsync());
+        public async Task<IActionResult> Get(int pagenumber, int pagesize)
+            => Ok(await _service.GetAllAsync(pagenumber, pagesize));
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
