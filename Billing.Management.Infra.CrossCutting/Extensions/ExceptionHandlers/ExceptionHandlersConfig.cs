@@ -7,15 +7,15 @@ namespace Billing.Management.Infra.CrossCutting.Extensions.ExceptionHandlers
     {
         public static void AddExceptionHandlers(this IServiceCollection services)
         {
-            services.AddControllers(
-                option => {
-                    option.Filters.Add(typeof(ExceptionFilter));
-                }
-            ).AddJsonOptions(
-                options => {
-                    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-                }
-            );
+            services.AddControllers(option => 
+            {
+                option.Filters.Add(typeof(ExceptionFilter));
+            }
+            ).AddJsonOptions(options => 
+            {
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
         }
     }
 }

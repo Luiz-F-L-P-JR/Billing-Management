@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="HttpHandler\x1cmjpp0.ofh~" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Billing.Management.Domain\Billing.Management.Domain.csproj" />
   </ItemGroup>
 
