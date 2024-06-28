@@ -31,7 +31,7 @@ namespace Billing.Management.Application.Customer.Service
 
         public async Task CreateAsync(CustomerDTO entity)
         {
-            var customer = _mapper.Map<Domain.Customer.Model.Customer>(entity);
+            var customer = _mapper?.Map<Domain.Customer.Model.Customer>(entity);
 
             customer.Id = Guid.NewGuid();
             await _service?.CreateAsync(customer);
@@ -39,7 +39,7 @@ namespace Billing.Management.Application.Customer.Service
 
         public async Task UpdateAsync(CustomerDTO entity)
         {
-            var customer = _mapper.Map<Domain.Customer.Model.Customer>(entity);
+            var customer = _mapper?.Map<Domain.Customer.Model.Customer>(entity);
             await _service?.UpdateAsync(customer);
         }
 

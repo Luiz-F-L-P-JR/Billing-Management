@@ -20,14 +20,14 @@ namespace customer.Management.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(CustomerDTO), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(int pagenumber, int pagesize)
-            => Ok(await _service.GetAllAsync(pagenumber, pagesize));
+            => Ok(await _service?.GetAllAsync(pagenumber, pagesize));
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(CustomerDTO), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(Guid id)
-            => Ok(await _service.GetAsync(id));
+            => Ok(await _service?.GetAsync(id));
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -37,7 +37,7 @@ namespace customer.Management.Api.Controllers
         {
             if(customer is CustomerDTO)
             {
-                await _service.CreateAsync(customer);
+                await _service?.CreateAsync(customer);
                 
                 return Created
                 (
@@ -61,7 +61,7 @@ namespace customer.Management.Api.Controllers
         {
             if (customer is CustomerDTO { Id: Guid })
             {
-                await _service.UpdateAsync(customer);
+                await _service?.UpdateAsync(customer);
                 return NoContent();
             }
 
@@ -74,7 +74,7 @@ namespace customer.Management.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _service.DeleteAsync(id);
+            await _service?.DeleteAsync(id);
             return NoContent();
         }
     }

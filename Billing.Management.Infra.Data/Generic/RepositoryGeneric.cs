@@ -6,6 +6,11 @@ using System.Net;
 
 namespace Billing.Management.Infra.Data.Generic
 {
+    #pragma warning disable CS8602
+    #pragma warning disable CS8603
+    #pragma warning disable CS8604
+    #pragma warning disable CS1998
+
     public class RepositoryGeneric<T> : IRepositoryGeneric<T> where T : class
     {
         protected readonly ILogger<T>? _logger;
@@ -19,7 +24,7 @@ namespace Billing.Management.Infra.Data.Generic
 
         public async Task<T> GetAsync(Guid id)
         {
-            var data = await _context?.Set<T>().FindAsync(id).AsTask();
+            var data = await _context.Set<T>().FindAsync(id);
 
             if (data is T) return data;
 
@@ -46,7 +51,7 @@ namespace Billing.Management.Infra.Data.Generic
                 throw new HttpRequestException("Data can not be updated.", null, HttpStatusCode.BadRequest);
             }
 
-            await _context.Set<T>().Update(entity).GetDatabaseValuesAsync();
+            _context?.Set<T>().Update(entity);
         }
 
         public async Task DeleteAsync(Guid id)
@@ -59,7 +64,7 @@ namespace Billing.Management.Infra.Data.Generic
                 throw new HttpRequestException("Data can not be deleted.", null, HttpStatusCode.BadRequest);
             }
 
-            await _context.Set<T>().Remove(entity).GetDatabaseValuesAsync();
+            _context?.Set<T>().Remove(entity);
         }
     }
 }

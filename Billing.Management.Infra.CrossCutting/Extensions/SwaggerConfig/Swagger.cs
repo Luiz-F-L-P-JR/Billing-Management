@@ -1,5 +1,8 @@
 ﻿using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
+using System.Reflection;
 
 namespace Billing.Management.Infra.CrossCutting.Extensions.SwaggerConfig
 {
@@ -21,7 +24,27 @@ namespace Billing.Management.Infra.CrossCutting.Extensions.SwaggerConfig
                         Email = "luizfernandojr1998@gmail.com"
                     }
                 });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
             });
+        }
+
+        public static void UseSwaggerConfig(this WebApplication app)
+        {
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger(options =>
+                {
+                    options.SerializeAsV2 = true;
+                });
+
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                });
+            }
         }
     }
 }

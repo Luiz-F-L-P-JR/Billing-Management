@@ -7,9 +7,9 @@ namespace Billing.Management.Infra.Data.HttpHandler
 {
     public class HttpRequests : IHttpRequests
     {
-        private readonly HttpClient _httpClient;
+        private readonly HttpClient? _httpClient;
 
-        public HttpRequests(HttpClient httpClient)
+        public HttpRequests(HttpClient? httpClient)
         {
             _httpClient = httpClient;
         }
@@ -18,7 +18,7 @@ namespace Billing.Management.Infra.Data.HttpHandler
         {
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
 
-            var response = await _httpClient.SendAsync(httpRequestMessage);
+            var response = await _httpClient?.SendAsync(httpRequestMessage);
 
             return response;
         }
@@ -37,7 +37,7 @@ namespace Billing.Management.Infra.Data.HttpHandler
         {
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, uri);
 
-            var response = await _httpClient.SendAsync(httpRequestMessage);
+            var response = await _httpClient?.SendAsync(httpRequestMessage);
 
             return response;
         }
@@ -49,7 +49,7 @@ namespace Billing.Management.Infra.Data.HttpHandler
                 Content = new StringContent(JsonSerializer.Serialize(item), Encoding.UTF8, "application/json")
             };
 
-            var response = await _httpClient.SendAsync(httpRequestMessage);
+            var response = await _httpClient?.SendAsync(httpRequestMessage);
 
             return response;
         }

@@ -25,6 +25,8 @@ using Billing.Management.Infra.Data.Billing.Repositories;
 using Billing.Management.Domain.Customer.Repository.Interface;
 using Billing.Management.Infra.Data.Customer.Repository;
 using Billing.Management.Application.AutoMapper;
+using Billing.Management.Domain.HttpHandler.Interface;
+using Billing.Management.Infra.Data.HttpHandler;
 
 namespace Billing.Management.Infra.CrossCutting.Extensions.IoC
 {
@@ -64,6 +66,11 @@ namespace Billing.Management.Infra.CrossCutting.Extensions.IoC
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
+            #endregion
+
+            #region Http Injection
+            services.AddScoped(typeof(HttpClient));
+            services.AddScoped<IHttpRequests, HttpRequests>();
             #endregion
         }
     }

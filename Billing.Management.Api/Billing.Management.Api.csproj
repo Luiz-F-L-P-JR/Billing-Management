@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -6,6 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>59dc8eaf-dcd2-46b3-bebb-a42349fdb073</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  <NoWarn>$(NoWarn);1591;8602</NoWarn>
+  <DocumentationFile>obj\Debug\net8.0\Billing.Management.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
