@@ -5,6 +5,7 @@ namespace Billing.Management.Domain.Billing.Models
     {
         public Guid Id { get; set; }
         public string? InvoiceNumber { get; set; }
+        public Guid CustomerId { get; set; }
         public Customer.Model.Customer? Customer { get; set; }
         public DateTime? Date { get; set; } = DateTime.Now;
         public DateTime? DueDate { get; set; }

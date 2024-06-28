@@ -9,7 +9,7 @@ namespace Billing.Management.Domain.Billing.Models
         public string? Description { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public decimal Subtotal => this.UnitPrice * this.Quantity;
+        public decimal Subtotal { get; set; }
 
         public BillingLine()
         {
@@ -22,6 +22,7 @@ namespace Billing.Management.Domain.Billing.Models
             Description = description;
             Quantity = quantity;
             UnitPrice = unitPrice;
+            Subtotal = (unitPrice * quantity);
         }
     }
 }

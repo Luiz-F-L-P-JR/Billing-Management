@@ -16,7 +16,12 @@ namespace Billing.Management.Infra.Data.Billing.FluentApis
                 x.InvoiceNumber
             });
 
-            builder.Property(x => x.Customer)
+            builder.HasOne(x => x.Customer)
+                   .WithOne()
+                   .HasConstraintName("CustomerId")
+                   .IsRequired();
+
+            builder.Property(x => x.CustomerId)
                    .IsRequired();
 
             builder.Property(x => x.Date)
