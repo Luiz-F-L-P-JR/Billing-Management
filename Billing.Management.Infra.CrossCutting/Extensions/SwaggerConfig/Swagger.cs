@@ -25,9 +25,7 @@ namespace Billing.Management.Infra.CrossCutting.Extensions.SwaggerConfig
                     }
                 });
 
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                options.IncludeXmlComments(xmlPath);
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Billing.Management.Api.xml"));
             });
         }
 
