@@ -1,4 +1,5 @@
 using Billing.Management.Infra.CrossCutting.Extensions.DbConnectionConfig;
+using Billing.Management.Infra.CrossCutting.Extensions.ExceptionHandlers;
 using Billing.Management.Infra.CrossCutting.Extensions.IoC;
 using Billing.Management.Infra.CrossCutting.Extensions.SwaggerConfig;
 
@@ -8,9 +9,13 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDependencyInjection();
 
+builder.Services.AddExceptionHandlers();
+
 builder.Services.AddSwagger();
 
 builder.AddDbConnection();
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
