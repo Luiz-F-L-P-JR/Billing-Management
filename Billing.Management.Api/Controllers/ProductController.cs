@@ -38,7 +38,16 @@ namespace Billing.Management.Api.Controllers
             if(product is ProductDTO)
             {
                 await _service.CreateAsync(product);
-                return Created();
+
+                return Created
+                (
+                    "Created", 
+                    new 
+                    {
+                        ResponseCode = StatusCodes.Status201Created,
+                        ResponseMessage = "Product successfully created."                        
+                    }
+                );
             }
 
             return BadRequest();

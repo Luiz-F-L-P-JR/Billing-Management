@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
@@ -18,10 +19,16 @@ namespace Billing.Management.Infra.CrossCutting.Extensions.ExceptionHandlers
         {
             _logger?.LogError(context.Exception, context.Exception.Message);
 
+            var statusCode = context.Exception.Message.Contains("Try") ? 404 : 400;
+
             context.Result = new ObjectResult(context)
             {
-                StatusCode = context.HttpContext.Response.StatusCode,
-                Value = context.Exception.Message
+                StatusCode = statusCode,
+                Value = new
+                {
+                    ResponseCode = statusCode,
+                    ResponseMessage = context.Exception.Message
+                }
             };
         }
     }

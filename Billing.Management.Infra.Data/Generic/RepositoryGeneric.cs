@@ -29,31 +29,37 @@ namespace Billing.Management.Infra.Data.Generic
 
         public async Task CreateAsync(T entity)
         {
-            if(entity is T)
-                await _context.Set<T>().AddAsync(entity);
+            if(entity is not T)
+            {
+                _logger?.LogError(null, "Data can not be created.");
+                throw new HttpRequestException("Data can not be created.", null, HttpStatusCode.BadRequest);
+            }
 
-            _logger?.LogError(null, "Data can not be created.");
-            throw new HttpRequestException("Data can not be created.", null, HttpStatusCode.BadRequest);
+            await _context.Set<T>().AddAsync(entity);
         }
 
         public async Task UpdateAsync(T entity)
         {
-            if(entity is T)
-                await _context.Set<T>().Update(entity).GetDatabaseValuesAsync();
+            if(entity is not T)
+            {
+                _logger?.LogError(null, "Data can not be updated.");
+                throw new HttpRequestException("Data can not be updated.", null, HttpStatusCode.BadRequest);
+            }
 
-            _logger?.LogError(null, "Data can not be updated.");
-            throw new HttpRequestException("Data can not be updated.", null, HttpStatusCode.BadRequest);
+            await _context.Set<T>().Update(entity).GetDatabaseValuesAsync();
         }
 
         public async Task DeleteAsync(Guid id)
         {
             var entity = await this.GetAsync(id);
 
-            if (entity is T)
-                await _context.Set<T>().Remove(entity).GetDatabaseValuesAsync();
+            if (entity is not T)
+            {
+                _logger?.LogError(null, "Data can not be deleted.");
+                throw new HttpRequestException("Data can not be deleted.", null, HttpStatusCode.BadRequest);
+            }
 
-            _logger?.LogError(null, "Data can not be deleted.");
-            throw new HttpRequestException("Data can not be deleted.", null, HttpStatusCode.BadRequest);
+            await _context.Set<T>().Remove(entity).GetDatabaseValuesAsync();
         }
     }
 }

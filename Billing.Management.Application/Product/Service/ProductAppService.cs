@@ -32,6 +32,8 @@ namespace Billing.Management.Application.Product.Service
         public async Task CreateAsync(ProductDTO entity)
         {
             var product = _mapper.Map<Domain.Product.Model.Product>(entity);
+
+            product.Id = Guid.NewGuid();
             await _service?.CreateAsync(product);
         }
 

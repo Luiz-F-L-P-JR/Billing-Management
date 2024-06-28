@@ -16,14 +16,14 @@ namespace customer.Management.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(CustomerDTO), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(int pagenumber, int pagesize)
             => Ok(await _service.GetAllAsync(pagenumber, pagesize));
 
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(CustomerDTO), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(Guid id)
@@ -31,22 +31,31 @@ namespace customer.Management.Api.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Post(CustomerDTO customer)
         {
             if(customer is CustomerDTO)
             {
                 await _service.CreateAsync(customer);
-                return Created();
+                
+                return Created
+                (
+                    "Created", 
+                    new 
+                    {
+                        ResponseCode = StatusCodes.Status201Created,
+                        ResponseMessage = "Customer successfully created."                        
+                    }
+                );
             }
 
             return BadRequest();
         }
 
         [HttpPut()]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Put(CustomerDTO customer)
         {
@@ -60,8 +69,8 @@ namespace customer.Management.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Delete(Guid id)
         {
