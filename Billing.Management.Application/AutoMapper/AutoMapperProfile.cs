@@ -7,9 +7,9 @@ using Billing.Management.Domain.Billing.Models;
 
 namespace Billing.Management.Application.AutoMapper
 {
-    public class Mapper : Profile
+    public class AutoMapperProfile : Profile
     {
-        public Mapper()
+        public AutoMapperProfile()
         {
             CreateMap<BillingLine, BillingLineDTO>().ReverseMap();
             CreateMap<Domain.Product.Model.Product, ProductDTO>().ReverseMap();
