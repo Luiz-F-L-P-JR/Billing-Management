@@ -1,5 +1,4 @@
 ﻿
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
@@ -15,11 +14,12 @@ namespace Billing.Management.Infra.CrossCutting.Extensions.ExceptionHandlers
             _logger = logger;
         }
 
+        //Method to handle the exceptions without a need of the usage of try catchs.
         public void OnException(ExceptionContext context)
         {
-            _logger?.LogError(context.Exception, context.Exception.Message);
+            _logger?.LogError(context.Exception, context.Exception.Message, DateTime.Now);
 
-            var statusCode = context.Exception.Message.Contains("Try") ? 404 : 400;
+            var statusCode = context.Exception.Message.Contains("try") ? 404 : 400;
 
             context.Result = new ObjectResult(context)
             {

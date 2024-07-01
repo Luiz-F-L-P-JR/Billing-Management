@@ -27,6 +27,14 @@ using Billing.Management.Infra.Data.Customer.Repository;
 using Billing.Management.Application.AutoMapper;
 using Billing.Management.Domain.HttpHandler.Interface;
 using Billing.Management.Infra.Data.HttpHandler;
+using Billing.Management.Application.Billing.HttpRequests.Interface;
+using Billing.Management.Application.Billing.HttpRequests.Service;
+using Billing.Management.Application.FileHandler.Excel.Interface;
+using Billing.Management.Application.FileHandler.Excel;
+using Billing.Management.Domain.Auth.Repository.Interface;
+using Billing.Management.Infra.Data.Auth.Repository;
+using Billing.Management.Application.Auth.JwtHelper.Interface;
+using Billing.Management.Application.Auth.JwtHelper;
 
 namespace Billing.Management.Infra.CrossCutting.Extensions.IoC
 {
@@ -71,6 +79,16 @@ namespace Billing.Management.Infra.CrossCutting.Extensions.IoC
             #region Http Injection
             services.AddScoped(typeof(HttpClient));
             services.AddScoped<IHttpRequests, HttpRequests>();
+            services.AddScoped<IBillingServiceRequests, BillingServiceRequests>();
+            #endregion
+
+            #region File Injection
+            services.AddScoped(typeof(IExcelBuilder<>), typeof(ExcelBuilder<>));
+            #endregion
+
+            #region JWT Injection
+            services.AddScoped<IJwtAuth, JwtAuth>();
+            services.AddScoped<IUserAuthRegister, UserAuthRegister>();
             #endregion
         }
     }

@@ -1,6 +1,7 @@
 using Billing.Management.Infra.CrossCutting.Extensions.DbConnectionConfig;
 using Billing.Management.Infra.CrossCutting.Extensions.ExceptionHandlers;
 using Billing.Management.Infra.CrossCutting.Extensions.IoC;
+using Billing.Management.Infra.CrossCutting.Extensions.JwtAuthConfig;
 using Billing.Management.Infra.CrossCutting.Extensions.SwaggerConfig;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddExceptionHandlers();
 
 builder.Services.AddSwagger();
 
+builder.AddJwtAuthConfig();
+
 builder.AddDbConnection();
 
 builder.Services.AddAuthorization();
@@ -24,6 +27,8 @@ var app = builder.Build();
 app.UseSwaggerConfig();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

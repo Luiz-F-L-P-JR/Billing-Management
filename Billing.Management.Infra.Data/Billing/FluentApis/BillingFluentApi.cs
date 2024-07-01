@@ -13,13 +13,9 @@ namespace Billing.Management.Infra.Data.Billing.FluentApis
             builder.HasIndex(x => new
             {
                 x.Id,
+                x.CustomerId,
                 x.InvoiceNumber
             });
-
-            builder.HasOne(x => x.Customer)
-                   .WithOne()
-                   .HasConstraintName("CustomerId")
-                   .IsRequired();
 
             builder.Property(x => x.CustomerId)
                    .IsRequired();

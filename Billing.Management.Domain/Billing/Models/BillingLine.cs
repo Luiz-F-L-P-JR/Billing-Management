@@ -1,4 +1,6 @@
 ﻿
+using System.Text.Json.Serialization;
+
 namespace Billing.Management.Domain.Billing.Models
 {
     public sealed class BillingLine
@@ -8,7 +10,10 @@ namespace Billing.Management.Domain.Billing.Models
         public Guid ProductId { get; set; }
         public string? Description { get; set; }
         public int Quantity { get; set; }
+
+        [JsonPropertyName("unit_price")]
         public decimal UnitPrice { get; set; }
+
         public decimal Subtotal { get; set; }
 
         public BillingLine()

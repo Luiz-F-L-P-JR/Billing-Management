@@ -1,4 +1,5 @@
 ﻿
+using Billing.Management.Domain.Auth.Model;
 using Billing.Management.Domain.Billing.Models;
 using Billing.Management.Infra.Data.Billing.FluentApis;
 using Billing.Management.Infra.Data.Customer.FluentApi;
@@ -9,6 +10,7 @@ namespace Billing.Management.Infra.Data.Context
 {
     public class BillingApiContext : DbContext
     {
+        public DbSet<UserAuth>? Users { get; set; }
         public DbSet<BillingLine>? BillingLines { get; set; }
         public DbSet<Domain.Product.Model.Product>? Products { get; set; }
         public DbSet<Domain.Billing.Models.Billing>? Billings { get; set; }

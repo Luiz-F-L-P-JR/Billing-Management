@@ -2,21 +2,47 @@
 using Billing.Management.Domain.Billing.Models;
 using Billing.Management.Domain.Billing.Repositories.Interfaces;
 using Billing.Management.Infra.Data.Context;
-using Billing.Management.Infra.Data.Generic;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace Billing.Management.Infra.Data.Billing.Repositories
 {
-    public class BillingLineRepository : RepositoryGeneric<BillingLine>, IBillingLineRepository
+    public class BillingLineRepository : IBillingLineRepository
     {
-        public BillingLineRepository(ILogger<BillingLine>? logger, BillingApiContext? context) 
-            : base(logger, context)
+        private readonly ILogger<BillingLine>? _logger;
+        private readonly BillingApiContext? _context;
+
+        public BillingLineRepository(ILogger<BillingLine>? logger, BillingApiContext? context)
         {
+            _logger = logger;
+            _context = context;
         }
 
-        public Task<IEnumerable<BillingLine>> GetAllAsync()
+        public async Task CreateAsync(BillingLine entity)
         {
-            throw new NotImplementedException();
+            if (entity is not BillingLine)
+            {
+                _logger?.LogError(null, "Data can not be created.");
+                throw new HttpRequestException("Data can not be created.", null, HttpStatusCode.BadRequest);
+            }
+
+            await _context.BillingLines.AddAsync(entity);
         }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var entity = await _context.BillingLines.FindAsync(id);
+
+            if (entity is not BillingLine)
+            {
+                _logger?.LogError(null, "Data can not be deleted.");
+                throw new HttpRequestException("Data can not be deleted.", null, HttpStatusCode.BadRequest);
+            }
+
+            _context?.BillingLines?.Remove(entity);
+        }
+
+        public bool Exists(Guid id)
+            => _context.BillingLines.ToList().Exists(x => x.Id == id);
     }
 }

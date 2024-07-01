@@ -5,6 +5,8 @@ namespace Billing.Management.Domain.Billing.Repositories.Interfaces
 {
     public interface IBillingRepository : IRepositoryGeneric<Models.Billing>
     {
-        Task<IEnumerable<Models.Billing>> GetAllAsync();
+        bool Exists(Guid id);
+        Task<IEnumerable<Models.Billing>> GetAllAsync(int pagenumber, int pagesize);
+        Task<IEnumerable<Models.Billing>> GetAllWithLinesAsync(int pagenumber, int pagesize);
     }
 }

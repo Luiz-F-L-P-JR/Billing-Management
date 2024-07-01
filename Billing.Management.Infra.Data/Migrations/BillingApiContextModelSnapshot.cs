@@ -15,6 +15,26 @@ namespace Billing.Management.Infra.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
 
+            modelBuilder.Entity("Billing.Management.Domain.Auth.Model.UserAuth", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("Billing.Management.Domain.Billing.Models.Billing", b =>
                 {
                     b.Property<Guid>("Id")
@@ -35,22 +55,24 @@ namespace Billing.Management.Infra.Data.Migrations
 
                     b.Property<DateTime?>("DueDate")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasAnnotation("Relational:JsonPropertyName", "due_date");
 
                     b.Property<string>("InvoiceNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasAnnotation("Relational:JsonPropertyName", "invoice_number");
 
                     b.Property<decimal?>("TotalAmount")
                         .IsRequired()
                         .HasPrecision(18, 6)
-                        .HasColumnType("REAL");
+                        .HasColumnType("REAL")
+                        .HasAnnotation("Relational:JsonPropertyName", "total_amount");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId")
-                        .IsUnique();
+                    b.HasIndex("CustomerId");
 
-                    b.HasIndex("Id", "InvoiceNumber");
+                    b.HasIndex("Id", "CustomerId", "InvoiceNumber");
 
                     b.ToTable("Billings");
                 });
@@ -81,7 +103,8 @@ namespace Billing.Management.Infra.Data.Migrations
 
                     b.Property<decimal>("UnitPrice")
                         .HasPrecision(18, 6)
-                        .HasColumnType("REAL");
+                        .HasColumnType("REAL")
+                        .HasAnnotation("Relational:JsonPropertyName", "unit_price");
 
                     b.HasKey("Id");
 
@@ -162,11 +185,10 @@ namespace Billing.Management.Infra.Data.Migrations
             modelBuilder.Entity("Billing.Management.Domain.Billing.Models.Billing", b =>
                 {
                     b.HasOne("Billing.Management.Domain.Customer.Model.Customer", "Customer")
-                        .WithOne()
-                        .HasForeignKey("Billing.Management.Domain.Billing.Models.Billing", "CustomerId")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("CustomerId");
+                        .IsRequired();
 
                     b.Navigation("Customer");
                 });

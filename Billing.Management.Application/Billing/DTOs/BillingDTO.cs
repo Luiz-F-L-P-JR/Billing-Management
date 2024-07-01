@@ -11,6 +11,6 @@ namespace Billing.Management.Application.Billing.DTOs
         DateTime? DueDate, 
         decimal? TotalAmount, 
         string? Currency, 
-        BillingLineDTO? Lines
+        List<BillingLineDTO>? Lines
     );
 }
