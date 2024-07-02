@@ -50,14 +50,14 @@ Antes de começar, certifique-se de ter os seguintes requisitos instalados em su
 
    Configure as chaves JWT no arquivo de configuração appsettings.json:
 
-  ```bash
-     json
-     {
-       "JwtSettings": {
-         "SecretKey": "sua_chave_secreta_aqui"
+    ```bash
+       json
+       {
+         "JwtSettings": {
+           "SecretKey": "sua_chave_secreta_aqui"
+         }
        }
-     }
-   ```
+     ```
 
 5. *Executando a aplicação:*
 
