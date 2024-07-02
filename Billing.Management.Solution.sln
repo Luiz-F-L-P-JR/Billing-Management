@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - API", "1 - API", "{42973702-14F5-4A8C-A43F-335F9CEACF14}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Application", "2 - Application", "{652F6DB2-4F83-4155-8256-ACD9D9571F5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", "{8B434E02-C8F1-4D99-816B-23DA8D512480}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infra", "4 - Infra", "{4615B380-E1DB-4F04-946F-FE96F8708BDB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1 Infra.Data", "4.1 Infra.Data", "{7058AC74-A912-41AE-8C09-F96BDB6206B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2 Infra.CrossCutting", "4.2 Infra.CrossCutting", "{1F66775D-41E8-4E92-B692-9EE254811AC4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Test", "5 - Test", "{63DA1CA7-2EB0-4631-959E-D40816ADC3DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing.Management.Api", "Billing.Management.Api\Billing.Management.Api.csproj", "{BBC9DC3B-6A77-48BD-A55F-4C853B86ECC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing.Management.Application", "Billing.Management.Application\Billing.Management.Application.csproj", "{53E01F94-DA3C-422C-98FE-A1B4C9840186}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing.Management.Test", "Billing.Management.Test\Billing.Management.Test.csproj", "{6FC2C39A-A58B-4466-8CDB-0E07A8F36476}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing.Management.Domain", "Billing.Management.Domain\Billing.Management.Domain.csproj", "{3412E4D7-00B6-4AA2-82AD-4A31A07EBEFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing.Management.Infra.Data", "Billing.Management.Infra.Data\Billing.Management.Infra.Data.csproj", "{3BAF4B94-5610-47D5-B4AD-054C07291456}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing.Management.Infra.CrossCutting", "Billing.Management.Infra.CrossCutting\Billing.Management.Infra.CrossCutting.csproj", "{A92B62D4-7C53-409E-AF15-D1B85829D86B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBC9DC3B-6A77-48BD-A55F-4C853B86ECC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBC9DC3B-6A77-48BD-A55F-4C853B86ECC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBC9DC3B-6A77-48BD-A55F-4C853B86ECC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBC9DC3B-6A77-48BD-A55F-4C853B86ECC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53E01F94-DA3C-422C-98FE-A1B4C9840186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53E01F94-DA3C-422C-98FE-A1B4C9840186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53E01F94-DA3C-422C-98FE-A1B4C9840186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53E01F94-DA3C-422C-98FE-A1B4C9840186}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FC2C39A-A58B-4466-8CDB-0E07A8F36476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FC2C39A-A58B-4466-8CDB-0E07A8F36476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FC2C39A-A58B-4466-8CDB-0E07A8F36476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FC2C39A-A58B-4466-8CDB-0E07A8F36476}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3412E4D7-00B6-4AA2-82AD-4A31A07EBEFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3412E4D7-00B6-4AA2-82AD-4A31A07EBEFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3412E4D7-00B6-4AA2-82AD-4A31A07EBEFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3412E4D7-00B6-4AA2-82AD-4A31A07EBEFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BAF4B94-5610-47D5-B4AD-054C07291456}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BAF4B94-5610-47D5-B4AD-054C07291456}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BAF4B94-5610-47D5-B4AD-054C07291456}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BAF4B94-5610-47D5-B4AD-054C07291456}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A92B62D4-7C53-409E-AF15-D1B85829D86B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A92B62D4-7C53-409E-AF15-D1B85829D86B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A92B62D4-7C53-409E-AF15-D1B85829D86B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A92B62D4-7C53-409E-AF15-D1B85829D86B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7058AC74-A912-41AE-8C09-F96BDB6206B0} = {4615B380-E1DB-4F04-946F-FE96F8708BDB}
+		{1F66775D-41E8-4E92-B692-9EE254811AC4} = {4615B380-E1DB-4F04-946F-FE96F8708BDB}
+		{BBC9DC3B-6A77-48BD-A55F-4C853B86ECC6} = {42973702-14F5-4A8C-A43F-335F9CEACF14}
+		{53E01F94-DA3C-422C-98FE-A1B4C9840186} = {652F6DB2-4F83-4155-8256-ACD9D9571F5A}
+		{6FC2C39A-A58B-4466-8CDB-0E07A8F36476} = {63DA1CA7-2EB0-4631-959E-D40816ADC3DC}
+		{3412E4D7-00B6-4AA2-82AD-4A31A07EBEFE} = {8B434E02-C8F1-4D99-816B-23DA8D512480}
+		{3BAF4B94-5610-47D5-B4AD-054C07291456} = {7058AC74-A912-41AE-8C09-F96BDB6206B0}
+		{A92B62D4-7C53-409E-AF15-D1B85829D86B} = {1F66775D-41E8-4E92-B692-9EE254811AC4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {127E1B29-327F-486E-80DB-77BED95368FA}
+	EndGlobalSection
+EndGlobal
