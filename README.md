@@ -1,52 +1,79 @@
-# Billing Management
+# Billing Management API
 
-Este projeto é uma REST API de gerenciamento de serviços de faturamento, utilizando uma arquitetura voltada para o domínio (DDD) e ferramentas Microsoft, como .NET com C#.
+Billing Management API é uma REST API para gerenciamento de serviços de faturamento, que cria e manipula esses faturamentos.
+
+## Funcionalidades
+
+- *Customer (Cliente):* CRUD para gerenciar clientes.
+- *Produtos:* CRUD para gerenciar produtos.
+- *Billing:* CRUD para gerenciar billings.
+- *Billing (Faturamento):*
+  - Inserção de registro de billing e billingLines no banco de dados local se cliente e produto existirem.
+  - Erro retornado se cliente ou produto estiverem ausentes durante a criação do registro.
+- *Integração com API Externa:* Possibilidade de integração com outras APIs externas.
+- *Extração de Dados:* Geração de arquivo .xlsx a partir dos dados do sistema.
+- *Autenticação JWT:* Utilização de tokens JWT para autenticar e autorizar usuários.
 
 ## Pré-requisitos
 
-Certifique-se de ter os seguintes requisitos instalados em sua máquina:
+Antes de começar, certifique-se de ter os seguintes requisitos instalados em sua máquina:
 
-- .NET SDK (versão X.X.X)
-- Entity Framework (versão X.X.X)
-- SQLite (versão X.X.X)
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- Um editor de código de sua preferência (ex: Visual Studio, Visual Studio Code)
+- SQLite3 (já incluído no .NET Core)
 
-## Configuração do Banco de Dados
+## Configuração
 
-1. Certifique-se de ter o SQLite instalado em sua máquina.
-2. O projeto está configurado para usar o SQLite como base de dados.
-3. Não é necessário configurar uma string de conexão para o SQLite.
+1. *Clone o repositório:*
 
-## Instalação
+   bash
+   git clone https://github.com/Luiz-F-L-P-JR/Billing-Management.git
+   
 
-Siga os passos abaixo para instalar e configurar o projeto:
+2. *Abra o projeto:*
 
-1. Clone este repositório em sua máquina local.
-2. Abra o projeto no Visual Studio ou em sua IDE preferida.
-3. Restaure os pacotes NuGet.
-4. Execute o comando `dotnet ef database update` para criar as tabelas no banco de dados.
+   Navegue até o diretório clonado e abra o projeto no seu editor de código.
 
-## Uso
+3. *Configuração do Banco de Dados:*
 
-1. Execute o projeto.
-2. Use uma ferramenta como o Postman para testar as diferentes rotas e funcionalidades da API.
+   Execute as migrações para criar o banco de dados local SQLite:
 
-## Testes
+   bash
+   dotnet ef database update --project Billing-Management.Infrastructure
+   
 
-Este projeto utiliza TDD (Test-Driven Development). Para executar os testes, siga os passos abaixo:
+   Isso aplicará as migrações necessárias para criar o banco de dados SQLite na pasta Billing-Management.Infrastructure.
 
-1. Abra o projeto no Visual Studio ou em sua IDE preferida.
-2. Execute o comando `dotnet test` no terminal para executar os testes.
+4. *Configuração do JWT:*
 
-## Contribuição
+   Configure as chaves JWT no arquivo de configuração appsettings.json:
 
-Se você quiser contribuir para este projeto, siga as etapas abaixo:
+   json
+   {
+     "JwtSettings": {
+       "SecretKey": "sua_chave_secreta_aqui"
+     }
+   }
+   
 
-1. Faça um fork deste repositório.
-2. Crie uma nova branch com sua contribuição: `git checkout -b minha-contribuicao`.
-3. Faça as alterações necessárias e commit: `git commit -m "Minha contribuição"`.
-4. Envie suas alterações para o repositório remoto: `git push origin minha-contribuicao`.
-5. Abra um pull request no GitHub.
+5. *Executando a aplicação:*
 
-## Contato
+   Para iniciar a API, utilize o comando:
 
-Se você tiver alguma dúvida ou sugestão, entre em contato através do email: [seu-email@example.com](mailto:seu-email@example.com).
+   bash
+   dotnet run --project Billing-Management.Api
+   
+
+   A API estará disponível nas portas de acesso configuradas no arquivo lauchsettings.json.
+
+## Utilização da API
+
+Explore os endpoints da API utilizando uma ferramenta como [Postman](https://www.postman.com/) ou [Insomnia](https://insomnia.rest/).
+
+## Contribuindo
+
+Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests e reportar issues.
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
