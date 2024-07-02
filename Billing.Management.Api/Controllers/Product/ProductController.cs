@@ -17,6 +17,12 @@ namespace Billing.Management.Api.Controllers.Product
             _service = service;
         }
 
+        /// <summary>
+        /// Get all products paged.
+        /// </summary>
+        /// <param name="pagenumber"></param>
+        /// <param name="pagesize"></param>
+        /// <returns>A 200 code, with a list of products, in case of success</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -25,6 +31,11 @@ namespace Billing.Management.Api.Controllers.Product
         public async Task<IActionResult> GetAsync(int pagenumber, int pagesize)
             => Ok(await _service?.GetAllAsync(pagenumber, pagesize));
 
+        /// <summary>
+        /// Get a product.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A 200 code, with a product, in case of success</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -33,6 +44,11 @@ namespace Billing.Management.Api.Controllers.Product
         public async Task<IActionResult> GetAsync(Guid id)
             => Ok(await _service?.GetAsync(id));
 
+        /// <summary>
+        /// Creates a new product inserting him/her in the data-base.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns>A 201 code, in case of success</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -58,6 +74,11 @@ namespace Billing.Management.Api.Controllers.Product
             return BadRequest();
         }
 
+        /// <summary>
+        /// Updates a product information.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns>A 204 code, in case of success</returns>
         [HttpPut()]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -74,6 +95,11 @@ namespace Billing.Management.Api.Controllers.Product
             return BadRequest();
         }
 
+        /// <summary>
+        /// Delete a product register.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A 204 code, in case of success</returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

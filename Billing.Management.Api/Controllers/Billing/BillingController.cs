@@ -17,6 +17,12 @@ namespace Billing.Management.Api.Controllers.Billing
             _service = service;
         }
 
+        /// <summary>
+        /// Get all billings paged.
+        /// </summary>
+        /// <param name="pagenumber"></param>
+        /// <param name="pagesize"></param>
+        /// <returns>A 200 code, with a list of billings, in case of success</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -25,6 +31,11 @@ namespace Billing.Management.Api.Controllers.Billing
         public async Task<IActionResult> GetAsync(int pagenumber, int pagesize)
             => Ok(await _service?.GetAllAsync(pagenumber, pagesize));
 
+        /// <summary>
+        /// Get a billing.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A 200 code, with a billing, in case of success</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -33,6 +44,11 @@ namespace Billing.Management.Api.Controllers.Billing
         public async Task<IActionResult> GetAsync(Guid id)
             => Ok(await _service?.GetAsync(id));
 
+        /// <summary>
+        /// Creates a new billing inserting him/her in the data-base.
+        /// </summary>
+        /// <param name="billing"></param>
+        /// <returns>A 201 code, in case of success</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -58,14 +74,18 @@ namespace Billing.Management.Api.Controllers.Billing
             return BadRequest();
         }
 
-        [HttpPost("external-request")]
+        /// <summary>
+        /// Creates new billings inserting them in the data-base through an external API.
+        /// </summary>
+        /// <returns>A 201 code, in case of success</returns>
+        [HttpPost("from-request")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> PostAsync()
         {
-            await _service.CreateAsync();
+            await _service.CreateFromRequestAsync();
 
             return Created
             (
@@ -78,6 +98,11 @@ namespace Billing.Management.Api.Controllers.Billing
             );
         }
 
+        /// <summary>
+        /// Updates a billing information.
+        /// </summary>
+        /// <param name="billing"></param>
+        /// <returns>A 204 code, in case of success</returns>
         [HttpPut()]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -94,6 +119,11 @@ namespace Billing.Management.Api.Controllers.Billing
             return BadRequest();
         }
 
+        /// <summary>
+        /// Delete a billing register.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A 204 code, in case of success</returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

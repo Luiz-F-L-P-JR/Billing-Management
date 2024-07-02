@@ -3,98 +3,227 @@ using Billing.Management.Domain.Customer.Service;
 using Billing.Management.Domain.UnitOfWork.Interface;
 using FluentAssertions;
 using Moq;
+using NPOI.SS.Formula.Functions;
 using System.Net;
 
 namespace Billing.Management.Test.DomainTest.Customer
 {
     public class CustomerDomainServiceTest
     {
-        private readonly Mock<IUnitOfWork<Domain.Customer.Model.Customer>>? _mock;
+        private readonly Mock<IUnitOfWork<Domain.Customer.Model.Customer>>? _mockUnitOfWork;
 
-        private Guid VALID_ID = Guid.NewGuid();
-        private Guid INVALID_ID = Guid.Parse("87878787877");
+        private Guid VALID_ID = new Guid("a543fdc0-27e8-4787-8f81-cf7ea5227229");
+        private Guid INVALID_ID = new Guid("dddddddd-dddd-dddd-dddd-dddddddddddd");
 
         public CustomerDomainServiceTest()
         {
-            _mock = new(MockBehavior.Strict);
+            _mockUnitOfWork = new();
 
-            _mock.Setup(s => s.CustomerRepository.GetAllAsync(1, 10))
+            _mockUnitOfWork?.Setup(s => s.CustomerRepository.GetAllAsync(10000, 10000))
                  .ThrowsAsync(new HttpRequestException("No data found. Try again.", null, HttpStatusCode.NotFound));
 
-            _mock.Setup(s => s.CustomerRepository.GetAllAsync(1, 2))
+            _mockUnitOfWork?.Setup(s => s.CustomerRepository.GetAllAsync(1, 2))
                  .ReturnsAsync
                  (
                     new List<Domain.Customer.Model.Customer>()
                     {
-                        new ()
+                        new()
                         {
-                            Id = Guid.NewGuid(),
-                            Name = "CustomerTeste 01"
+                            Id = VALID_ID,
+                            Name = "CustomerTeste 01",
+                            Email = "Test@email.com",
+                            Address = "Address Test 222"
                         },
 
-                        new ()
+                        new()
                         {
-                            Id = Guid.NewGuid(),
-                            Name = "CustomerTeste 02"
+                            Id = VALID_ID,
+                            Name = "CustomerTeste 00",
+                            Email = "Test@email.com",
+                            Address = "Address Test 123"
                         }
                     }
                  );
 
-            var Customer = new Domain.Customer.Model.Customer()
+            _mockUnitOfWork?.Setup(s => s.RepositoryGeneric.CreateAsync(It.IsAny<Domain.Customer.Model.Customer>()));
+
+            _mockUnitOfWork?.Setup(s => s.RepositoryGeneric.UpdateAsync(It.IsAny<Domain.Customer.Model.Customer>()));
+
+            _mockUnitOfWork?.Setup(s => s.RepositoryGeneric.DeleteAsync(It.IsAny<Guid>()));
+        }
+
+        [Fact]
+        public async Task Get_All_Customers_Success()
+        {
+            //Arrenge
+            CustomerDomainService service = new(_mockUnitOfWork?.Object);
+
+            //Act
+            var result = await service.GetAllAsync(1, 2);
+
+            //Assert
+            result.Should().NotBeEmpty()
+            .And.HaveCount(2).Equals
+            (
+                new List<Domain.Customer.Model.Customer>()
+                {
+                    new()
+                    {
+                        Id = VALID_ID,
+                        Name = "CustomerTeste 00",
+                        Email = "Test@email.com",
+                        Address = "Address Test 123"
+                    },
+
+                    new()
+                    {
+                        Id = VALID_ID,
+                        Name = "CustomerTeste 01",
+                        Email = "Test@email.com",
+                        Address = "Address Test 222"
+                    }
+                }
+            );
+        }
+
+        [Fact]
+        public async Task Get_All_Customers_Failure()
+        {
+            //Arrenge
+            CustomerDomainService service = new(_mockUnitOfWork?.Object);
+
+            //Act
+            Func<Task> result = async () => await service.GetAllAsync(10000, 10000);
+
+            //Assert
+            await result.Should().ThrowAsync<HttpRequestException>().WithMessage("No data found. Try again.");
+        }
+
+        [Fact]
+        public async Task Get_Customer_Success()
+        {
+            var customer = new Domain.Customer.Model.Customer()
             {
-                Id = Guid.NewGuid(),
-                Name = "CustomerTeste 00"
+                Id = VALID_ID,
+                Name = "CustomerTeste 00",
+                Email = "Test@email.com",
+                Address = "Address Test 123"
             };
 
-            _mock.Setup(s => s.CustomerRepository.GetAsync(INVALID_ID))
-                 .ThrowsAsync(new HttpRequestException("No data found. Try again.", null, HttpStatusCode.NotFound));
+            //Arrenge
+            _mockUnitOfWork?.Setup(s => s.RepositoryGeneric.GetAsync(VALID_ID))
+                .ReturnsAsync(customer);
 
-            _mock.Setup(s => s.CustomerRepository.GetAsync(Guid.NewGuid()))
-                 .ReturnsAsync(Customer);
+            CustomerDomainService service = new(_mockUnitOfWork?.Object);
+
+            //Act
+            var result = await service.GetAsync(VALID_ID);
+
+            //Assret
+            result.Should().Be(customer);
         }
 
         [Fact]
-        public void Get_All_Customers_Success()
+        public async Task Get_Customer_Failure()
         {
-            CustomerDomainService service = new(_mock.Object);
+            //Arrenge
+            _mockUnitOfWork?.Setup(s => s.RepositoryGeneric.GetAsync(INVALID_ID))
+                  .ThrowsAsync(new HttpRequestException("No data found. Try again.", null, HttpStatusCode.NotFound));
 
-            service
-                .GetAllAsync(1, 2)
-                .Should()
-                .Be(new List<Domain.Customer.Model.Customer>());
+            CustomerDomainService service = new(_mockUnitOfWork?.Object);
+
+            //Act
+            Func<Task> result = async () => await service.GetAsync(INVALID_ID);
+
+            //Assret
+            await result.Should().ThrowAsync<HttpRequestException>().WithMessage("No data found. Try again.");
         }
 
         [Fact]
-        public void Get_All_Customers_Failure()
+        public async Task Create_Customer_Success()
         {
-            CustomerDomainService service = new(_mock.Object);
+            //Arrenge
+            CustomerDomainService service = new(_mockUnitOfWork?.Object);
 
-            service
-                .GetAllAsync(1, 10)
-                .Should()
-                .Be(new HttpRequestException("No data found. Try again.", null, HttpStatusCode.NotFound));
+            //Act
+            await service.CreateAsync(It.IsAny<Domain.Customer.Model.Customer>());
+
+            //Assret
+            _mockUnitOfWork?.Verify(x => x.RepositoryGeneric.CreateAsync(It.IsAny<Domain.Customer.Model.Customer>()), Times.Once);
         }
 
         [Fact]
-        public void Get_Customer_Success()
+        public async Task Update_Customer_Success()
         {
-            CustomerDomainService service = new(_mock.Object);
+            //Arrenge
+            CustomerDomainService service = new(_mockUnitOfWork?.Object);
 
-            service
-                .GetAsync(Guid.NewGuid())
-                .Should()
-                .Be(new Domain.Customer.Model.Customer());
+            //Act
+            await service.UpdateAsync(It.IsAny<Domain.Customer.Model.Customer>());
+
+            //Assret
+            _mockUnitOfWork?.Verify(x => x.RepositoryGeneric.UpdateAsync(It.IsAny<Domain.Customer.Model.Customer>()), Times.Once);
         }
 
         [Fact]
-        public void Get_Customer_Failure()
+        public async Task Delete_Customer_Success()
         {
-            CustomerDomainService service = new(_mock.Object);
+            //Arrenge
+            CustomerDomainService service = new(_mockUnitOfWork?.Object);
 
-            service
-                .GetAsync(INVALID_ID)
-                .Should()
-                .Be(new HttpRequestException("No data found. Try again.", null, HttpStatusCode.NotFound));
+            //Act
+            await service.DeleteAsync(It.IsAny<Guid>());
+
+            //Assret
+            _mockUnitOfWork?.Verify(x => x.RepositoryGeneric.DeleteAsync(It.IsAny<Guid>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task Create_Customer_Failure()
+        {
+            //Arrenge
+            _mockUnitOfWork?.Setup(s => s.RepositoryGeneric.CreateAsync(null))
+                  .ThrowsAsync(new HttpRequestException("Data can not be created.", null, HttpStatusCode.BadRequest));
+
+            CustomerDomainService service = new(_mockUnitOfWork?.Object);
+
+            //Act
+            Func<Task> result = async () => await service.CreateAsync(null);
+
+            //Assret
+            await result.Should().ThrowAsync<HttpRequestException>().WithMessage("Data can not be created.");
+        }
+
+        [Fact]
+        public async Task Update_Customer_Failure()
+        {
+            //Arrenge
+            _mockUnitOfWork?.Setup(s => s.RepositoryGeneric.UpdateAsync(null))
+                  .ThrowsAsync(new HttpRequestException("Data can not be updated.", null, HttpStatusCode.BadRequest));
+
+            CustomerDomainService service = new(_mockUnitOfWork?.Object);
+
+            //Act
+            Func<Task> result = async () => await service.UpdateAsync(null);
+
+            //Assret
+            await result.Should().ThrowAsync<HttpRequestException>().WithMessage("Data can not be updated.");
+        }
+
+        [Fact]
+        public async Task Delete_Customer_Failure()
+        {
+            //Arrenge
+            _mockUnitOfWork?.Setup(s => s.RepositoryGeneric.DeleteAsync(INVALID_ID))
+                  .ThrowsAsync(new HttpRequestException("Data can not be deleted.", null, HttpStatusCode.BadRequest));
+
+            CustomerDomainService service = new(_mockUnitOfWork?.Object);
+
+            //Act
+            Func<Task> result = async () => await service.DeleteAsync(INVALID_ID);
+
+            //Assret
+            await result.Should().ThrowAsync<HttpRequestException>().WithMessage("Data can not be deleted.");
         }
     }
 }

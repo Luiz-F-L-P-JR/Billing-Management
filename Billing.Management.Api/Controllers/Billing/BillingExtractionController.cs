@@ -24,6 +24,12 @@ namespace Billing.Management.Api.Controllers.Billing
             _service = service;
         }
 
+        /// <summary>
+        /// Extracts the billing informations paged and generates an excel file.
+        /// </summary>
+        /// <param name="pagenumber"></param>
+        /// <param name="pagesize"></param>
+        /// <returns>A 200 code, with a link to download an excel file containing a list of billings, in case of success</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

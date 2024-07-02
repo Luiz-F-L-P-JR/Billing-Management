@@ -50,7 +50,7 @@ namespace Billing.Management.Application.Billing.Services
             await _service?.CreateAsync(billing);
         }
 
-        public async Task CreateAsync()
+        public async Task CreateFromRequestAsync()
         {
             var result = await _requests?.GetAllAsync();
 
