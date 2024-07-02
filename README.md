@@ -26,8 +26,9 @@ Antes de começar, certifique-se de ter os seguintes requisitos instalados em su
 
 1. *Clone o repositório:*
 
-   bash
+   ```bash
    git clone https://github.com/Luiz-F-L-P-JR/Billing-Management.git
+   ```
    
 
 2. *Abra o projeto:*
@@ -38,8 +39,9 @@ Antes de começar, certifique-se de ter os seguintes requisitos instalados em su
 
    Execute as migrações para criar o banco de dados local SQLite:
 
-   bash
-   dotnet ef database update --project Billing-Management.Infrastructure
+   ```bash
+   dotnet ef database update --project Billing-Management.Infra.Data
+   ```
    
 
    Isso aplicará as migrações necessárias para criar o banco de dados SQLite na pasta Billing-Management.Infrastructure.
@@ -48,21 +50,22 @@ Antes de começar, certifique-se de ter os seguintes requisitos instalados em su
 
    Configure as chaves JWT no arquivo de configuração appsettings.json:
 
+  ```bash
    json
    {
      "JwtSettings": {
        "SecretKey": "sua_chave_secreta_aqui"
      }
    }
-   
+   ```
 
 5. *Executando a aplicação:*
 
    Para iniciar a API, utilize o comando:
 
-   bash
+   ```bash
    dotnet run --project Billing-Management.Api
-   
+   ```   
 
    A API estará disponível nas portas de acesso configuradas no arquivo lauchsettings.json.
 
